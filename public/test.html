@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <h1>CES</h1>
+  <video id="webcam"></video>
+  <script>
+    navigator.getUserMedia || (navigator.getUserMedia = navigator.mozGetUserMedia ||  navigator.webkitGetUserMedia || navigator.msGetUserMedia);
+
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia({
+        video: true
+      }, function(stream){
+        console.log('success')
+        console.log(stream)
+        var video = document.getElementById('webcam');
+        if (window.URL) {
+          video.src = window.URL.createObjectURL(stream);
+        } else {
+          video.src = stream;
+        }
+
+        video.autoplay = true;
+      }, function () {
+        console.log('failed')
+      });
+    } else {
+      console.log('your browser not support getUserMedia');
+    }
+  </script>
+</body>
+</html>
